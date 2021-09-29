@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>航班详细信息</title>
+
+    <!-- 引入Sementic的UI -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/bootstrap.min.css"
+          th:href="@{/admin/asset/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/plugins/font-awesome.min.css"
+          th:href="@{/admin/asset/css/plugins/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/plugins/animate.min.css"
+          th:href="@{/admin/asset/css/plugins/animate.min.css}"/>
+    <link href="../../static/admin/asset/css/style.css" rel="stylesheet" th:href="@{/admin/asset/css/style.css}">
+
+    <style>
+        .flight_list{
+            position: relative;
+            right: -200px;
+            filter:alpha(Opacity=80);
+            -moz-opacity:0.5;opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+<!-- 导航 -->
+<nav class="head_box ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item"><img src="../../static/images/logo.png" th:src="@{/images/logo.png}"></h2>
+            <a href="index.html" class="active m-item item m-mobile-hide" th:href="@{/}"><i class="home icon"></i>首页</a>
+
+            <div class="m-item right item m-mobile-hide menu" th:if="${session.username} != null">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <span th:text="${session.username}">HeFlight</span>
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item" th:href="@{/user/UserCenter}">个人中心</a>
+                        <a href="../user/login.html" th:href="@{/user/logout}" class="item">注销登录</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-item right item m-mobile-hide menu" th:if="${session.username} == null">
+                <div class="ui dropdown item login_box">
+                    <div class="text">
+                        <a href="#" th:href="@{/user}" class="item">用户登录</a>
+                        <a href="#" th:href="@{/admin}" class="item">管理员登录</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</nav>
+<!-- 中间内容 -->
+<div style="text-align: center; margin:50px 200px 0px 200px">
+<div class="form-element" style="opacity:0.8">
+    <div class="col-md-12 padding-0">
+        <div class="col-md-12">
+            <div class="panel form-element-padding">
+                <div class="panel-heading">
+                    <h4>航班详细信息</h4>
+                </div>
+                <div class="panel-body" style="padding-bottom:30px;">
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+
+                            <label class="col-sm-1 control-label text-right" style="width:100px;">航班序号</label>
+                            <div class="col-sm-11" style="width:800px;">
+                                <span style="float: left" th:text="${flight.f_id}"/>
+                                <input name="f_id" type="hidden" class="form-control" placeholder="例：CA3690" th:value="${flight.f_id}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label class="col-sm-1 control-label text-right" style="width:100px;">航班号</label>
+                            <div class="col-sm-11" style="width:500px;">
+                                <input name="f_num" type="text" class="form-control" placeholder="例：CA3690" th:value="${flight.f_num}" readonly>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label class="col-sm-1 control-label text-right" style="width:100px;">起点</label>
+                            <div class="col-sm-3" style="width:200px;">
+                                <input name="f_start" type="text" class="form-control" placeholder="例：北京" th:value="${flight.f_start}" readonly>
+                            </div>
+
+
+                            <label class="col-sm-1 control-label text-right" style="width:100px;">终点</label>
+                            <div class="col-sm-3" style="width:200px;">
+                                <input name="f_end" type="text" placeholder="例：上海" class="form-control" th:value="${flight.f_end}" readonly>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label text-right" style="width:100px;">起飞时间</label>
+                            <div class="col-sm-3" style="width:200px;">
+                                <input name="f_dt" type="text" placeholder="例：08:30" class="form-control" th:value="${flight.f_dt}" readonly>
+                            </div>
+
+                            <label class="col-sm-1 control-label text-right" style="width:100px;">到达时间</label>
+                            <div class="col-sm-3" style="width:200px;">
+                                <input name="f_at" type="text" placeholder="例：12:35" class="form-control" th:value="${flight.f_at}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label class="col-sm-1 control-label text-right" style="width:100px;">头等舱数量</label>
+                            <div class="col-sm-3" style="width:200px;">
+                                <input name="f_t_n" type="text" placeholder="例：2100" class="form-control" th:value="${flight.f_t_n}" readonly>
+                            </div>
+                            <label class="col-sm-1 control-label text-right" style="width:100px;">商务舱数量</label>
+                            <div class="col-sm-3" style="width:200px;">
+                                <input name="f_s_n" type="text" placeholder="例：1600" class="form-control" th:value="${flight.f_s_n}" readonly>
+                            </div>
+
+                            <label class="col-sm-1 control-label text-right" style="width:100px;">经济舱数量</label>
+                            <div class="col-sm-3" style="width:200px;">
+                                <input name="f_j_n" type="text" placeholder="例：1200" class="form-control" th:value="${flight.f_j_n}" readonly>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+                            <label class="col-sm-1 control-label text-right" style="width:100px;">头等舱价格</label>
+                            <div class="col-sm-3" style="width:200px;">
+                                <input name="f_t" type="text" placeholder="例：2100" class="form-control" th:value="${flight.f_t}" readonly>
+                            </div>
+                            <label class="col-sm-1 control-label text-right" style="width:100px;">商务舱价格</label>
+                            <div class="col-sm-3" style="width:200px;">
+                                <input name="f_s" type="text" placeholder="例：1600" class="form-control" th:value="${flight.f_s}" readonly>
+                            </div>
+
+                            <label class="col-sm-1 control-label text-right" style="width:100px;">经济舱价格</label>
+                            <div class="col-sm-3" style="width:200px;">
+                                <input name="f_j" type="text" placeholder="例：1200" class="form-control" th:value="${flight.f_j}" readonly>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 text-center" style=" margin:20px;">
+                <!--<input class="submit btn btn-danger" type="submit" value="添加">-->
+                <a href="showFlight.html" th:href="@{/buy/}+${flight.f_id}"><input class="btn btn-danger" type=button value="订购">&nbsp;&nbsp;</a>
+                <a href="index.html" th:href="@{/}"><input class="btn btn-primary" type=button value="返回"></a>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订票</title>
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link href="../../static/css/common.css" rel="stylesheet" th:href="@{/css/common.css}">
+    <link href="../../static/css/corptravel.css" rel="stylesheet" th:href="@{/css/corptravel.css}">
+    <link href="../../static/css/enterprise.css" rel="stylesheet" th:href="@{/css/enterprise.css}">
+    <link href="../../static/css/iconfont.css" rel="stylesheet" th:href="@{/css/iconfont.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <script type="text/javascript" src="../../static/js/jquery-1.9.1.min.js" th:src="@{/js/jquery-1.9.1.min.js}"></script>
+    <script type="text/javascript" src="../../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <style>
+        .ticket{
+            position: relative;
+            top: 100px;
+        }
+        .order_list{
+            filter:alpha(Opacity=80);
+            -moz-opacity:0.5;opacity: 0.8;
+        }
+        .flight-to{
+            position: relative;
+            text-align: center;
+        }
+        。flight-info{
+            position: relative;
+            text-align: right;
+        }
+    </style>
+
+</head>
+<body>
+<!-- 导航 -->
+<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item"><img src="../../static/images/logo.png" th:src="@{/images/logo.png}"></h2>
+            <a href="index.html" class="m-item item m-mobile-hide" th:href="@{/}"><i class="home icon"></i>首页</a>
+            <div class="m-item right item m-mobile-hide menu" th:if="${session.username} != null">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <span th:text="${session.username}">王世超</span>
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item" th:href="@{/user/UserCenter}">个人中心</a>
+                        <a href="../user/login.html" th:href="@{/user/logout}" class="item">注销</a>
+                    </div>
+                </div>
+            </div>
+            <div class="m-item right item m-mobile-hide menu" th:if="${session.username} == null">
+
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+<!-- 中间内容 -->
+<form action="../add_order" class="order_list" method="post" th:action="@{/user/buyOneTicket}">
+    <input type="hidden" name="flight_id" value="SU2312" th:value="${flight.f_id}">
+    <div class="container bg-gray-eee box-shadow mar-bottom-30"
+         style="padding-right: 0px; padding-left: 0px; position: relative; margin-top: 120px;width: 85%">
+        <div class="col-sm-7 container bg-white  pad-bottom-20"
+             style="margin-top: 30px; margin-bottom: 30px;">
+            <div style="overflow: hidden;">
+                <h3 class="mar-bottom-20" style="display: block; float: left;">订购机票</h3>
+            </div>
+
+            <div>
+                <input  type="text" class="form-control input-sm w150"
+                       style="display: inline-block;" placeholder="用户：张三" th:value="'用户名：'+${session.username}" readonly>
+
+                <input type="text" class="form-control input-sm w300"
+                       style="display: inline-block;" th:value="'真实姓名：'+${user.realName}" readonly>
+                <!--<input type="date" name="date"/>-->
+                <!--<input name="date" type="text" class="form-control input-sm w300"
+                       style="display: inline-block;" placeholder="订购时间（格式：nnnn-yy-rr hh:mm:ss）">-->
+                <input  type="text" class="form-control input-sm w150"
+                        style="display: inline-block;" th:value="'头等舱剩余：'+${flight.f_t_n}" readonly>
+            </div>
+
+            <div class="mar-top-10">
+                <select name="grade" class="form-control input-sm w150" style=" display: inline-block;">
+                    <option value="头等舱" selected="selected" th:text="'头等舱  ￥'+${flight.f_t}" th:if="${flight.f_t}>0">头等舱</option>
+                    <option value="商务舱" th:text="'商务舱  ￥'+${flight.f_s}" th:if="${flight.f_s}>0">商务舱</option>
+                    <option value="经济舱" th:text="'经济舱  ￥'+${flight.f_j}" th:if="${flight.f_j}>0">经济舱</option>
+                </select>
+                <input name="passenger_id" type="text" class="form-control input-sm w300"
+                       style="display: inline-block;" placeholder="乘机人身份证号">
+                <input  type="text" class="form-control input-sm w150"
+                        style="display: inline-block;" th:value="'商务舱剩余：'+${flight.f_s_n}" readonly>
+            </div>
+
+
+
+            <div class="mar-top-10">
+                <select name="select"
+                        class="form-control input-sm w150"
+                        style="display: inline-block;">
+                    <option value="国家" selected="selected">中国&nbsp;&nbsp;+86</option>
+                </select>
+                <input name="contact_phone" type="text" class="form-control input-sm"
+                                 style="display: inline-block; width: 300px;"
+                                 placeholder="手机号码，接收航班信息">
+                <input  type="text" class="form-control input-sm w150"
+                        style="display: inline-block;" th:value="'经济舱剩余：'+${flight.f_j_n}" readonly>
+            </div>
+
+
+        </div>
+        <div class="col-sm-5 bg-gray-eee ticket">
+            <div style="margin-left: -25px;">
+                <h4 style="overflow: hidden; margin-left: 40px;">
+                    <span style="display: block; float: left;"></span>
+                    <span style="display: block; float: left; margin-left: 200px;" th:text="${flight.f_start}">北京</span><span>---></span><span th:text="${flight.f_end}">郑州</span>
+                    <span
+                            style="display: block; float: right; color: #999; font-size: 14px; margin-right: 5px;"></span>
+                </h4>
+            </div>
+            <div style="overflow: hidden; margin-bottom: 20px;">
+                <div class="flight-from" style="float: left;">
+                    <span class="time text-center" th:text="${flight.f_dt}"></span><br/>
+                    <span style="margin-left:80px" th:text="${flight.f_start}"></span>
+                </div>
+                <div class="flight-info" style="float: left; margin-left: 10px;">
+                    <!--<img src="../../static/images/a.png" th:src="@{/images/a.png}">--><img src="../../static/images/a.png" th:src="@{/images/a.png}"><img src="../../static/images/b.png" th:src="@{/images/b.png}">
+                    <br/>
+                    <img src="../../static/images/c.png" th:src="@{/images/c.png}">
+                    <span class="text-center font12 gray-999"></span>航班：<span th:text="${flight.f_num}"></span><br/> <span
+                        class="airline-direct"></span> <span class="arrow"></span>
+                </div>
+                <div class="flight-to" style="float: right;">
+                    <span class="time text-center" th:text="${flight.f_at}"></span><br/> <span
+                        th:text="${flight.f_end}"></span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="text-center mar-top-10" style="margin-bottom: 20px;">
+        <input type="submit" value="提交订单"  class="btn btn-danger mar-top-20">
+    </div>
+    <div class="ui mini negative message" style="width:25%;text-align:center;left:37.5%"  th:unless="${#strings.isEmpty(message)}"   th:text="${message}">
+        当前机票已售空！
+    </div>
+    <div class="ui mini success message" style="width:25%;text-align:center;left:37.5%"  th:unless="${#strings.isEmpty(successMessage)}"   th:text="${successMessage}">
+        当前机票已售空！
+    </div>
+</form>
+
+<br>
+<br>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script>
+    //点击个人中心弹出下拉菜单
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+</script>
+</body>
+</html>

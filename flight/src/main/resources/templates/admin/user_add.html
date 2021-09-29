@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/bootstrap.min.css"
+          th:href="@{/admin/asset/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/plugins/font-awesome.min.css"
+          th:href="@{/admin/asset/css/plugins/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/plugins/animate.min.css"
+          th:href="@{/admin/asset/css/plugins/animate.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/style.css"
+          th:href="@{/admin/asset/css/style.css}">
+</head>
+<body style="overflow: hidden">
+<form method="post" action="/add_User" th:action="@{/admin/AddUser}" onsubmit="return check()">
+
+    <div class="panel">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <h3 class="animated fadeInLeft">添加用户</h3>
+                <p class="animated fadeInDown">用户管理>添加用户</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-element">
+        <div class="col-md-12 padding-0">
+            <div class="col-md-12">
+                <div class="panel form-element-padding">
+                    <div class="panel-heading">
+                        <h4>基本表单</h4>
+                    </div>
+                    <div class="panel-body" style="padding-bottom:30px;">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">用户名</label>
+                                <div class="col-sm-11" style="width:400px;">
+                                    <input name="username" type="text" class="form-control" placeholder="例：小明">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">密码</label>
+                                <div class="col-sm-11" style="width:400px;">
+                                    <input name="password" type="text" class="form-control" autocomplete="off" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">真实姓名</label>
+                                <div class="col-sm-11" style="width:400px;">
+                                    <input name="realName" type="text" class="form-control" placeholder="例：张三">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">身份证号</label>
+                                <div class="col-sm-11" style="width:400px;">
+                                    <input name="identityNum" type="text" class="form-control" placeholder="例：xxxxxx xxxxxxxx xxx x">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">手机号码</label>
+                                <div class="col-sm-11" style="width:400px;">
+                                    <input name="Phone" type="text" class="form-control" placeholder="例：xxx xxxx xxxx">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">邮箱</label>
+                                <div class="col-sm-11" style="width:400px;">
+                                    <input name="email" type="text" class="form-control" placeholder="例：zhangsan@qq.com">
+                                </div>
+                            </div>
+
+                            <!--<div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">起点</label>
+                                <div class="col-sm-3" style="width:200px;">
+                                    <input name="Flight_start" type="text" class="form-control" placeholder="例：北京">
+                                </div>
+
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">终点</label>
+                                <div class="col-sm-3" style="width:200px;">
+                                    <input name="Flight_end" type="text" placeholder="例：上海" class="form-control">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">起飞时间</label>
+                                <div class="col-sm-3" style="width:200px;">
+                                    <input name="Flight_dt" type="text" placeholder="例：08:30" class="form-control">
+                                </div>
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">到达时间</label>
+                                <div class="col-sm-3" style="width:200px;">
+                                    <input name="Flight_at" type="text" placeholder="例：12:35" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">头等舱数量</label>
+                                <div class="col-sm-3" style="width:200px;">
+                                    <input name="Flight_t_n" type="text" placeholder="例：2100" class="form-control">
+                                </div>
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">商务舱数量</label>
+                                <div class="col-sm-3" style="width:200px;">
+                                    <input name="Flight_s_n" type="text" placeholder="例：1600" class="form-control">
+                                </div>
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">经济舱数量</label>
+                                <div class="col-sm-3" style="width:200px;">
+                                    <input name="Flight_j_n" type="text" placeholder="例：1200" class="form-control">
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">头等舱价格</label>
+                                <div class="col-sm-3" style="width:200px;">
+                                    <input name="Flight_t" type="text" placeholder="例：2100" class="form-control">
+                                </div>
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">商务舱价格</label>
+                                <div class="col-sm-3" style="width:200px;">
+                                    <input name="Flight_s" type="text" placeholder="例：1600" class="form-control">
+                                </div>
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">经济舱价格</label>
+                                <div class="col-sm-3" style="width:200px;">
+                                    <input name="Flight_j" type="text" placeholder="例：1200" class="form-control">
+                                </div>
+
+                            </div>-->
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center" style=" margin:20px;">
+                    <input class="submit btn btn-danger" type="submit" value="添加">
+                </div>
+                <div  th:unless="${#strings.isEmpty(message)}" style="font-size: x-large;text-align: center">
+                    <span th:text="${message}" style="color: red"> 用户名和密码错误</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    function check() {
+        /*var nameValue = window.document.getElementById("Flight_num").value;*/
+        if (window.document.getElementsByName("username")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("用户名不能为空!");
+            return false;
+        }
+        if (window.document.getElementsByName("password")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("密码不能为空!");
+            return false;
+        }if (window.document.getElementsByName("realName")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("真实姓名不能为空!");
+            return false;
+        }if (window.document.getElementsByName("identityNum")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("身份证号不能为空!");
+            return false;
+        }if (window.document.getElementsByName("Phone")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("电话号码不能为空!");
+            return false;
+        }if (window.document.getElementsByName("email")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("邮箱不能为空!");
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

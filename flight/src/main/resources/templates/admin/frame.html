@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/bootstrap.min.css"
+          th:href="@{/admin/asset/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/plugins/font-awesome.min.css"
+          th:href="@{/admin/asset/css/plugins/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/style.css"
+          th:href="@{/admin/asset/css/style.css}">
+    <link rel="stylesheet" href="../../static/admin/css/page.css" th:href="@{/admin/css/page.css}"/>
+    <script type="text/javascript" src="../../static/admin/js/jquery.min.js" th:src="@{/admin/js/jquery.min.js}"></script>
+
+    <title>后台管理</title>
+
+    <style>
+    </style>
+</head>
+<body>
+<div id="left">
+    <div class="bigTitle">航班后台管理系统</div>
+    <div id="left-menu">
+        <div class="sub-left-menu scroll" style="width: 20%;">
+            <ul class="nav nav-list">
+
+                <li class="active ripple"><a class="tree-toggle nav-header">航班信息管理</a>
+                    <ul class="nav nav-list tree">
+                        <li><a target="frame" th:href="@{/admin/flights}" href="flight_list.html">航班信息列表</a></li>
+                        <li><a target="frame" th:href="@{/admin/findFlight}" href="find_flight.html">查找航班信息</a></li>
+                        <li><a target="frame" th:href="@{/admin/flight}" href="flight_add.html">添加航班信息</a></li>
+                    </ul>
+                </li>
+
+                <li class="ripple"><a class="tree-toggle nav-header">订单信息管理</a>
+                    <ul class="nav nav-list tree">
+                        <li><a target="frame" th:href="@{/admin/orders}" href="order_list.html">订单信息列表</a></li>
+                        <li><a target="frame" th:href="@{/admin/findOrder}" href="find_order.html">查找订单信息</a></li>
+                        <li><a target="frame" th:href="@{/admin/order}" href="find_flight.html">添加订单信息</a></li>
+                    </ul>
+                </li>
+
+                <li class=" ripple"><a class="tree-toggle nav-header">用户信息管理</a>
+                    <ul class="nav nav-list tree">
+                        <li><a target="frame" th:href="@{/admin/users}" href="user_list.html">用户信息列表</a></li>
+                        <li><a target="frame" th:href="@{/admin/find}" href="find_user.html">查找用户信息</a></li>
+                        <li><a target="frame" th:href="@{/admin/user}" href="user_add.html">添加用户信息</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div id="right">
+    <div id="right_top">
+        <div class="leftTiyle" id="flTitle"></div>
+        <div class="thisUser">
+            当前用户：[[${session.loginAdmin}]]
+            <div class="logout"><a href="/logout" th:href="@{/admin/logout}">退出</a></div>
+        </div>
+
+    </div>
+    <div id="right_bottom">
+        <iframe name="frame" scrolling="auto" width="100%" height="100%" frameborder="0"
+                src="welcome.html" th:src="@{/admin/welcome}">
+
+        </iframe>
+    </div>
+</div>
+
+
+<script src="../../static/admin/asset/js/jquery.min.js" th:src="@{/admin/asset/js/jquery.min.js}"></script>
+<script src="../../static/admin/asset/js/bootstrap.min.js" th:src="@{/admin/asset/js/bootstrap.min.js}"></script>
+<script src="../../static/admin/asset/js/plugins/jquery.nicescroll.js"
+        th:src="@{/admin/asset/js/plugins/jquery.nicescroll.js}"></script>
+<script src="../../static/admin/asset/js/main.js" th:src="@{/admin/asset/js/main.js}"></script>
+
+
+
+<!--动态添加.active属性实现按钮点击样式-->
+<script>
+    $(".nav-list li").click(function(){
+        $(".nav-list li").removeClass("active");
+        $(this).addClass("active");
+    })
+</script>
+
+</body>
+</html>

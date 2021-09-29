@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>用户中心</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <link type="text/css" rel="stylesheet" href="../../static/css/core.css" th:href="@{/css/core.css}">
+    <link type="text/css" rel="stylesheet" href="../../static/css/icon.css" th:href="@{/css/icon.css}">
+    <link type="text/css" rel="stylesheet" href="../../static/css/home.css" th:href="@{/css/home.css}">
+</head>
+<body>
+
+<!-- 导航 -->
+<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item"><img src="../../static/images/logo.png" th:src="@{/images/logo.png}"></h2>
+            <a href="../default/index.html" class="m-item item m-mobile-hide" th:href="@{/}"><i class="home icon"></i>首页</a>
+            <!--<a href="Snatchtickets.html" class="m-item item m-mobile-hide" th:href="@{/discount}"><i class="idea icon"></i>折扣专场</a>
+            <a href="../default/about.html" class="m-item item m-mobile-hide" th:href="@{/about}"><i class="info icon"></i>关于我们</a>-->
+            <div class="m-item right item m-mobile-hide menu" th:if="${session.username} != null">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <!--<img src="https://picsum.photos/id/1025/100/100" class="ui avatar image">-->
+                        <span th:text="${session.username}">HeFlight</span>
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item" th:href="@{/user/UserCenter}">个人中心</a>
+                        <a href="../user/login.html" th:href="@{/user/logout}" class="item">注销登录</a>
+                    </div>
+                </div>
+            </div>
+            <div class="m-item right item m-mobile-hide menu" th:if="${session.username} == null">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <a href="#" th:href="@{/user}" class="item">请登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+
+<div class="ydc-content-slide ydc-body" style="height:86%;">
+    <div class="ydc-flex" style="height:100%;">
+        <!-- left begin -->
+        <div class="ydc-column ydc-column-2">
+            <div class="ydc-menu">
+                <ul>
+                    <li class="ydc-menu-item"><span class="ydc-menu-sub-title">
+								<i class="ydc-icon ydc-icon-home fl"></i>用户
+						</span>
+                        <ul>
+                            <li><a target="frame" href="user_info.html" th:href="@{/user/UserInfo}">查看个人信息</a></li>
+                            <li><a target="frame" href="edit_info.html" th:href="@{/user/UpInfo}">更改个人信息</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="ydc-menu-item">
+							<span class="ydc-menu-sub-title">
+								<i class="ydc-icon ydc-icon-record fl"></i>订单
+							</span>
+                        <ul>
+                            <li><a target="frame" href="order_list.html" th:href="@{/user/getMyTicket}">订单列表</a></li>
+                            <!--<li><a target="frame" href="order_list.html" th:href="@{/discount/getMyTicket2}">折扣订单列表</a></li>-->
+                        </ul>
+                    </li>
+
+                    <li class="ydc-menu-item">
+                            <span class="ydc-menu-sub-title">
+								<i class="ydc-icon ydc-icon-file fl"></i>管理
+						    </span>
+                        <ul>
+                            <li><a href="../default/index.html" th:href="@{/}">返回首页</a></li>
+                            <li><a href="../default/index.html" th:href="@{/user/deleteUser}" onclick="return confirmHref()">注销账户</a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+        <!-- left end -->
+
+        <!-- right start -->
+        <div style="width:76%;height:100%;">
+            <iframe name="frame" scrolling="auto" width="100%" height="100%" frameborder="0" src="welcome.html" th:src="@{/user/welcome}">
+
+            </iframe>
+        </div>
+        <!-- right end -->
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+    function confirmHref(){
+        if(confirm("此操作将删除您的账号，您确定这样做吗？"))
+        {
+            return true;
+        }
+
+        return false;
+    }
+</script>
+</body>
+</html>

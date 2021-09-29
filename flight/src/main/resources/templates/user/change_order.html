@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="../../static/css/core.css" th:href="@{/css/core.css}">
+    <link type="text/css" rel="stylesheet" href="../../static/css/home.css" th:href="@{/css/home.css}">
+</head>
+<body>
+
+<div class="ydc-content-slide ydc-body">
+    <div class="ydc-flex">
+        <div class="ydc-column ydc-column-8">
+            <div class="ydc-release-content">
+                <div class="ydc-tabPanel ydc-tabPanel-release">
+                    <div class="ydc-release-tab-head">
+                        <ul>
+                            <li class="hit">改签</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <br>
+                        <p>您可以选择在下表更改该订单的舱位类型或者</p>
+                        <a th:href="@{/user/chooseOtherFlight/}+${order.order_id}" style="color: green">点击此处</a><p>选择其他时段航班或者</p>
+                        <br>
+                        <a th:href="@{/user/deleteOrderAndBackToIndex/}+${order.order_id}" style="color: red">点击此处</a><p>取消该订单并前往首页重新选择所需订单</p>
+
+                    </div>
+                    <div class="ydc-panes">
+                        <form action="../upload_img" enctype="multipart/form-data" method="post" th:action="@{/user/changeOrder}">
+                            <div class="ydc-reg-form-class ydc-reg-form-reg"
+                                 style="margin-top: 40px;">
+                                <div class="ydc-reg-form-group clearfix">
+                                    <label>订单号:</label>
+                                    <div class="ydc-reg-form-input">
+                                        <input type="text" class="ydc-form-control" autocomplete="off"
+                                               placeholder="例：23" th:value="${order.order_id}" name="order_id" readonly>
+                                    </div>
+                                </div>
+                                <div class="ydc-reg-form-group clearfix">
+                                    <label>航班序号:</label>
+                                    <div class="ydc-reg-form-input">
+                                        <input type="text" name="f_id"
+                                               class="ydc-form-control" autocomplete="off"
+                                               placeholder="例：11" th:value="${order.f_id}" readonly>
+                                    </div>
+
+                                </div>
+                                <div class="ydc-reg-form-group clearfix">
+                                    <label>航班号:</label>
+                                    <div class="ydc-reg-form-input">
+                                        <input type="text" name="f_num"
+                                               class="ydc-form-control" autocomplete="off"
+                                               placeholder="例：flight1" th:value="${order.f_num}" readonly>
+                                    </div>
+
+                                </div>
+                                <div class="ydc-reg-form-group clearfix">
+                                    <label>原航班类型:</label>
+                                    <div class="ydc-reg-form-input">
+                                        <input type="text" name="f_type"
+                                               class="ydc-form-control" autocomplete="off"
+                                               placeholder="例：头等舱" th:value="${order.f_type}" readonly>
+                                    </div>
+
+                                </div>
+                                <div class="ydc-reg-form-group clearfix">
+                                    <label>选择航班类型:</label>
+                                    <div class="ydc-reg-form-input">
+                                        <input type="radio" name="f_type_c" class="" autocomplete="off" value="头等舱" checked><!--th:value="${order.f_type}"-->&nbsp;&nbsp;头等舱&nbsp;&nbsp;<span th:text="'￥'+${flight.f_t}" style="width: 100px"></span>&nbsp;&nbsp;<span th:text="'剩余票数：'+${flight.f_t_n}" style="float:right"></span><br>
+                                        <input type="radio" name="f_type_c" class="" autocomplete="off" value="商务舱" >&nbsp;&nbsp;商务舱&nbsp;&nbsp;<span th:text="'￥'+${flight.f_s}" style="width: 100px"></span>&nbsp;&nbsp;<span th:text="'剩余票数：'+${flight.f_s_n}" style="float:right"></span><br>
+                                        <input type="radio" name="f_type_c" class="" autocomplete="off" value="经济舱" >&nbsp;&nbsp;经济舱&nbsp;&nbsp;<span th:text="'￥'+${flight.f_j}" style="width: 100px"></span>&nbsp;&nbsp;<span th:text="'剩余票数：'+${flight.f_j_n}" style="float:right"></span><br>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="ydc-reg-form-group">
+                                <div class="ydc-reg-form-button" style="margin-left: 255px;">
+                                    <button type="submit" class="btn btn-success"
+                                            id="checkValidateCode">修改
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="ui error mini message"></div>
+                        <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">
+                            用户名和密码错误
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script>
+    $("#sendCheckCode").click(function () {
+        var email = $("#email").val();
+        if (email == null || email == ""){
+            alert("请输入邮箱！！！");
+            return;
+        }
+        $.ajax({
+            type: "get",
+            url: "/user/getCheckCode?email="+email,
+            dataType: "json",
+            success(data){
+                console.log(data);
+            }
+        });
+    });
+</script>
+</body>
+</html>

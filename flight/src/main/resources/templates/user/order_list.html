@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link href="../../static/css/common.css" rel="stylesheet" th:href="@{/css/common.css}">
+    <link href="../../static/css/corptravel.css" rel="stylesheet" th:href="@{/css/corptravel.css}">
+</head>
+<body>
+
+<div class="<!--container--> bg-gray-eee box-shadow mar-bottom-30" style="padding-right: 0px; padding-left: 0px; position: relative; margin-top: 50px;">
+    <table border="0" cellspacing="0" cellpadding="0"
+           class="table table-hover table-striped font12 table-bordered v-align-top">
+        <tr>
+            <th style="width:5%;">订单号</th>
+            <th style="width:5%;">航班id</th>
+            <th style="width:5%;">航班号</th>
+            <th style="width:5%;">乘机人</th>
+            <th style="width:7%;">订购日期</th>
+            <th style="width:6%;">出发城市</th>
+            <th style="width:6%;">到达城市</th>
+            <th style="width:9%;">出发时间</th>
+            <th style="width:9%;">到达时间</th>
+            <th style="width:5%;">舱位</th>
+            <th style="width:4%;">价格</th>
+            <th style="width:12%;">乘客证件</th>
+
+            <th style="width:10%;">联系电话</th>
+
+            <th style="width:12%;">操作</th>
+        </tr>
+        <tr th:each="order:${userFlightList}">
+            <td th:text="${order.order_id}"></td>
+            <td th:text="${order.f_id}"></td>
+            <td th:text="${order.f_num}"></td>
+            <td th:text="${order.username}"></td>
+            <td th:text="${order.o_date}"></td>
+            <td th:text="${order.f_start}"></td>
+            <td th:text="${order.f_end}"></td>
+            <td th:text="${order.f_dt}"></td>
+            <td th:text="${order.f_at}"></td>
+            <td th:text="${order.f_type}"></td>
+            <td th:text="${order.f_price}"></td>
+            <td th:text="${order.userID}"></td>
+<!--            <td th:text="${order.contacts}"></td>-->
+            <td th:text="${order.phone}"></td>
+
+            <!--<td>
+                <form id="form-msg" class="sui-form form-horizontal" action="/refundTicket" method="post" th:action="@{/user/refundTicket/}+${order.order_id}">
+                    <div id="navfirst">
+                        <input type="submit" class="input-middle" value="退票" style="margin-top: 25px">
+                    </div>
+                </form>
+            </td>-->
+            <td>
+                <a th:href="@{/user/findOrder/}+${order.order_id}"><input class="btn btn-warning" type=button value="改签">&nbsp;&nbsp;</a>
+<!--
+                <a th:href="@{/user/refundTicket/}+${order.order_id}"><input class="btn btn-danger" type=button onclick="if(confirm('您确定退订此票吗?')==false)return false;" value="退票"></a>
+-->
+                <a th:href="@{/user/refundTicket/}+${order.order_id}"><input class="btn btn-danger" type=button onclick="return confirmHref()" value="退票"></a>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    function confirmHref(){
+        if(confirm("您确定退订此票吗？"))
+        {
+            return true;
+        }
+
+        return false;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+
+    <!-- 引入Sementic的UI -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <style>
+        .flight_list{
+            position: relative;
+            right: -200px;
+             filter:alpha(Opacity=80);
+            -moz-opacity:0.5;opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+<!-- 导航 -->
+<nav class="head_box ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item"><img src="../../static/images/logo.png" th:src="@{/images/logo.png}"></h2>
+            <a href="index.html" class="active m-item item m-mobile-hide" th:href="@{/}"><i class="home icon"></i>首页</a>
+
+            <div class="m-item right item m-mobile-hide menu" th:if="${session.username} != null">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <span th:text="${session.username}">HeFlight</span>
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item" th:href="@{/user/UserCenter}">个人中心</a>
+                        <a href="../user/login.html" th:href="@{/user/logout}" class="item">注销登录</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-item right item m-mobile-hide menu" th:if="${session.username} == null">
+                <div class="ui dropdown item login_box">
+                    <div class="text">
+                        <a href="#" th:href="@{/user}" class="item">用户登录</a>
+                        <a href="#" th:href="@{/admin}" class="item">管理员登录</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</nav>
+<!-- 中间内容 -->
+<div class="m-container1 m-padded-tb-large" style="opacity: 0.8">
+    <div class="ui container">
+        <div class="ui stackable grid" style="width: 1500px;">
+            <!-- 左边的top -->
+            <div class="wide column" style="width: 350px; padding-left: 30px;">
+                <!-- 查询机票 -->
+                <div class="ui segments m-margin-tb-large">
+                    <div class="ui secondary segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="search icon"></i>查询机票
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui teal segment">
+                        <form action="#" method="POST" th:action="@{/findFlight}">
+                            <div class="ui">
+                                <label class="ui compact teal basic label">出发地点</label>
+                                <input type="text" name="f_start" placeholder="例：北京">
+                            </div>
+                            <div class="ui m-margin-tb-large">
+                                <label class="ui compact teal basic label">到达地点</label>
+                                <input type="text" name="f_end" placeholder="例：上海">
+                            </div>
+                            <div class="ui m-margin-tb-large" >
+                                <label class="ui compact teal basic label">出发时间</label>
+                                <input type="date" name="f_dt" id="f_dt">
+                            </div>
+                            <button type="submit" id="publish-btn" class="ui teal button">查询</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 航线列表 -->
+            <div class="wide column" style="width: 1150px;height: 600px; overflow-y: scroll">
+                <!-- header -->
+                <div class="ui top attached segment">
+                    <div class="ui middle aligned two column grid">
+                        <div class="column">
+                            <h3 class="ui teal header">航线</h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- content -->
+                <div class="ui attached segment">
+                    <table class="ui table">
+                        <thead>
+                        <tr>
+                            <th>航班号</th>
+                            <th>起点</th>
+                            <th>终点</th>
+                            <th>出发时间</th>
+                            <th>到达时间</th>
+                            <th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="flight:${flightList}">
+                            <td th:text="${flight.f_num}"></td>
+                            <td th:text="${flight.f_start}"></td>
+                            <td th:text="${flight.f_end}"></td>
+                            <td th:text="${flight.f_dt}"></td>
+                            <td th:text="${flight.f_at}"></td>
+                            <td>
+                                <button><a href="detailFlight.html" th:href="@{/view/}+${flight.f_id}">详细信息</a></button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button><a href="showFlight.html" th:href="@{/buy/}+${flight.f_id}">订购</a></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- footer -->
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="ui mini negative message" style="width:77%;text-align:center;left:11.5%"  th:unless="${#strings.isEmpty(message)}"   th:text="${message}">
+    订购成功！
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+    //从iframe框架进入首页面时跳出iframe到顶层页面
+    $(function(){
+        index.initPage();
+    });
+    var index = {
+        //初始化页面跳转，为了防止从iframe跳转到index页面直接在iframe中显示index页面
+        initPage : function() {
+            //alert(location.href);
+            if(window.top != window.self){
+                top.location.href = location.href;
+            }
+        },
+    }
+
+    $(function(){
+        //得到当前时间
+        var date_now = new Date();
+        //得到当前年份
+        var year = date_now.getFullYear();
+        //得到当前月份
+        //注：
+        //  1：js中获取Date中的month时，会比当前月份少一个月，所以这里需要先加一
+        //  2: 判断当前月份是否小于10，如果小于，那么就在月份的前面加一个 '0' ， 如果大于，就显示当前月份
+        var month = date_now.getMonth()+1 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
+        //得到当前日子（多少号）
+        var date = date_now.getDate() < 10 ? "0"+date_now.getDate() : date_now.getDate();
+        //设置input标签的max属性
+        $("#f_dt").attr("min",year+"-"+month+"-"+date);
+    })
+</script>
+</body>
+</html>

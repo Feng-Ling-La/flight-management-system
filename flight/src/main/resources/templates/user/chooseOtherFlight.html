@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link href="../../static/css/common.css" rel="stylesheet" th:href="@{/css/common.css}">
+    <link href="../../static/css/corptravel.css" rel="stylesheet" th:href="@{/css/corptravel.css}">
+</head>
+<body>
+<!--<a th:href="@{/user/findOrder/}+${order.order_id}"><input class="btn btn-danger" type=button value="返回"></a>-->
+<div style="margin: 20px;font-size: 25px;">
+    <a th:href="@{/user/findOrder/}+${order.order_id}"></i>< 返回</a>
+</div>
+<div class="<!--container--> bg-gray-eee box-shadow mar-bottom-30"
+     style="padding-right: 0px; padding-left: 0px; position: relative;">
+    <table border="0" cellspacing="0" cellpadding="0"
+           class="table table-hover table-striped font12 table-bordered v-align-top">
+        <tr>
+            <th style="width:7%;">航班序号</th>
+            <th style="width:7%;">航班号</th>
+            <th style="width:7%;">始发地</th>
+            <th style="width:7%;">目的地</th>
+            <th style="width:10%;">出发时间</th>
+            <th style="width:10%;">到达时间</th>
+            <th style="width:7%;">头等舱数量</th>
+            <th style="width:7%;">商务舱数量</th>
+            <th style="width:7%;">经济舱数量</th>
+            <th style="width:7%;">头等舱价格</th>
+            <th style="width:7%;">商务舱价格</th>
+            <th style="width:7%;">经济舱价格</th>
+            <th style="width:10%;">操作</th>
+        </tr>
+        <tr th:each="flight:${flightList}">
+            <td th:text="${flight.f_id}"></td>
+            <td th:text="${flight.f_num}"></td>
+            <td th:text="${flight.f_start}"></td>
+            <td th:text="${flight.f_end}"></td>
+            <td th:text="${flight.f_dt}"></td>
+            <td th:text="${flight.f_at}"></td>
+            <td th:text="${flight.f_t_n}"></td>
+            <td th:text="${flight.f_s_n}"></td>
+            <td th:text="${flight.f_j_n}"></td>
+            <td th:text="${flight.f_t}"></td>
+            <td th:text="${flight.f_s}"></td>
+            <td th:text="${flight.f_j}"></td>
+
+            <!--<td>
+                <form id="form-msg" class="sui-form form-horizontal" action="/refundTicket" method="post" th:action="@{/user/refundTicket/}+${order.order_id}">
+                    <div id="navfirst">
+                        <input type="submit" class="input-middle" value="退票" style="margin-top: 25px">
+                    </div>
+                </form>
+            </td>-->
+            <td>
+                <a th:href="@{/user/reviseOrder/}+${order.order_id}+@{/}+${flight.f_id}"><input class="btn btn-warning" type=button value="改签此航班">&nbsp;&nbsp;</a>
+                <!--
+                                <a th:href="@{/user/refundTicket/}+${order.order_id}"><input class="btn btn-danger" type=button onclick="if(confirm('您确定退订此票吗?')==false)return false;" value="退票"></a>
+                -->
+
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    function confirmHref(){
+        if(confirm("您确定退订此票吗？"))
+        {
+            return true;
+        }
+
+        return false;
+    }
+</script>
+</body>
+</html>

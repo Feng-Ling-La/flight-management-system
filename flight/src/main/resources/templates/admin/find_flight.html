@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/bootstrap.min.css"
+          th:href="@{/admin/asset/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/plugins/font-awesome.min.css"
+          th:href="@{/admin/asset/css/plugins/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/plugins/animate.min.css"
+          th:href="@{/admin/asset/css/plugins/animate.min.css}"/>
+    <link href="../../static/admin/asset/css/style.css" rel="stylesheet" th:href="@{/admin/asset/css/style.css}">
+</head>
+<body>
+
+<div class="panel">
+    <div class="panel-body">
+        <div class="col-md-12">
+            <h3 class="animated fadeInLeft">查找航班</h3>
+            <p class="animated fadeInDown">航班管理>查找航班</p>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-12 padding-0 form-element">
+
+    <!--<div>
+        <div><i class="search icon"></i>查询航班</div>
+        <div>
+            <form method="post" th:action="@{/admin/findAllByF_num}">
+                <div>
+                    <label>航班号</label>
+                    <input type="text" name="f_num" placeholder="例：CA3690">
+                </div>
+                <button type="submit">查询</button>
+            </form>
+        </div>
+        <div>
+            <form method="post" th:action="@{/admin/findSomeFlight}">
+                <div>
+                    <label>出发城市</label>
+                    <input type="text" name="StartFly" placeholder="例：北京">
+                </div>
+                <div>
+                    <label>到达城市</label>
+                    <input type="text" name="EndFly" placeholder="例：上海">
+                </div>
+                <button type="submit">查询</button>
+            </form>
+        </div>
+
+    </div>-->
+    <div class="panel-body" style="padding-bottom:30px;">
+        <div class="col-md-12">
+
+            <div class="form-group">
+
+                <form method="post" th:action="@{/admin/findAllByF_num}">
+                    <label class="col-sm-1 control-label text-right" style="width:100px;">输入航班号</label>
+                    <div class="col-sm-11" style="width:200px;">
+                        <input name="f_num" type="text" class="form-control" placeholder="例：CA3690">
+                    </div>
+                    <!--<button type="submit">查询</button>-->
+                    <input class="submit btn btn-primary" type="submit" value="查询">
+
+                </form>
+
+            </div>
+            <div><br /></div>
+
+            <div class="form-group">
+
+                <form method="post" th:action="@{/admin/findFlight}">
+                    <label class="col-sm-1 control-label text-right" style="width:100px;">输入起点</label>
+                    <div class="col-sm-3" style="width:200px;">
+                        <input name="f_start" type="text" class="form-control" placeholder="例：北京">
+                    </div>
+
+                    <label class="col-sm-1 control-label text-right" style="width:100px;">输入终点</label>
+                    <div class="col-sm-3" style="width:200px;">
+                        <input name="f_end" type="text" placeholder="例：上海" class="form-control">
+                    </div>
+
+                    <label class="col-sm-1 control-label text-right" style="width:100px;">出发时间</label>
+                    <div class="col-sm-3" style="width:200px;">
+                        <input name="f_dt" type="date" class="form-control" id="f_dt">
+                    </div>
+
+                    <input class="submit btn btn-primary" type="submit" value="查询">
+                </form>
+            </div>
+
+
+            <!--<div class="form-group">
+                <label class="col-sm-1 control-label text-right" style="width:100px;">起飞时间</label>
+                <div class="col-sm-3" style="width:200px;">
+                    <input name="Flight_dt" type="text" placeholder="例：08:30" class="form-control">
+                </div>
+
+                <label class="col-sm-1 control-label text-right" style="width:100px;">到达时间</label>
+                <div class="col-sm-3" style="width:200px;">
+                    <input name="Flight_at" type="text" placeholder="例：12:35" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <label class="col-sm-1 control-label text-right" style="width:100px;">头等舱数量</label>
+                <div class="col-sm-3" style="width:200px;">
+                    <input name="Flight_t_n" type="text" placeholder="例：2100" class="form-control">
+                </div>
+                <label class="col-sm-1 control-label text-right" style="width:100px;">商务舱数量</label>
+                <div class="col-sm-3" style="width:200px;">
+                    <input name="Flight_s_n" type="text" placeholder="例：1600" class="form-control">
+                </div>
+
+                <label class="col-sm-1 control-label text-right" style="width:100px;">经济舱数量</label>
+                <div class="col-sm-3" style="width:200px;">
+                    <input name="Flight_j_n" type="text" placeholder="例：1200" class="form-control">
+                </div>
+
+            </div>
+            <div class="form-group">
+
+                <label class="col-sm-1 control-label text-right" style="width:100px;">头等舱价格</label>
+                <div class="col-sm-3" style="width:200px;">
+                    <input name="Flight_t" type="text" placeholder="例：2100" class="form-control">
+                </div>
+                <label class="col-sm-1 control-label text-right" style="width:100px;">商务舱价格</label>
+                <div class="col-sm-3" style="width:200px;">
+                    <input name="Flight_s" type="text" placeholder="例：1600" class="form-control">
+                </div>
+
+                <label class="col-sm-1 control-label text-right" style="width:100px;">经济舱价格</label>
+                <div class="col-sm-3" style="width:200px;">
+                    <input name="Flight_j" type="text" placeholder="例：1200" class="form-control">
+                </div>
+
+            </div>-->
+
+
+        </div>
+    </div>
+
+
+    <div class="panel">
+        <div class="panel-heading">
+            <h3>列表内容</h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="responsive-table">
+                <div id="datatables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-striped table-bordered dataTable no-footer" width="100%"
+                                   cellspacing="0" style="width: 100%;">
+                                <thead>
+                                <tr>
+                                    <th class="sorting_asc" style="width:6%;">航班序号</th>
+                                    <th class="sorting" style="width:8%;">航班号</th>
+                                    <th class="sorting" style="width:8%;">始发地</th>
+                                    <th class="sorting" style="width:8%;">目的地</th>
+                                    <th class="sorting" style="width:8%;">起飞时间</th>
+                                    <th class="sorting" style="width:8%;">到达时间</th>
+                                    <th class="sorting" style="width:6%;">头等舱数量</th>
+                                    <th class="sorting" style="width:6%;">商务舱数量</th>
+                                    <th class="sorting" style="width:6%;">经济舱数量</th>
+                                    <th class="sorting" style="width:8%;">头等舱价格</th>
+                                    <th class="sorting" style="width:8%;">商务舱价格</th>
+                                    <th class="sorting" style="width:8%;">经济舱价格</th>
+                                    <!-- <th class="sorting" style="width:4%;">&nbsp;&nbsp;&nbsp;&nbsp;</th>-->
+                                    <th class="sorting" style="width:12%;">操作</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="flight:${flightList}">
+                                    <td th:text="${flight.f_id}"></td>
+                                    <td th:text="${flight.f_num}"></td>
+                                    <td th:text="${flight.f_start}"></td>
+                                    <td th:text="${flight.f_end}"></td>
+                                    <td th:text="${flight.f_dt}"></td>
+                                    <td th:text="${flight.f_at}"></td>
+                                    <td th:text="${flight.f_t_n}"></td>
+                                    <td th:text="${flight.f_s_n}"></td>
+                                    <td th:text="${flight.f_j_n}"></td>
+                                    <td th:text="${flight.f_t}"></td>
+                                    <td th:text="${flight.f_s}"></td>
+                                    <td th:text="${flight.f_j}"></td>
+                                    <td>
+                                        <a th:href="@{/admin/findFlight/}+${flight.f_id}"><input class="btn btn-warning" type=button value="修改">&nbsp;&nbsp;</a>
+                                        <a th:href="@{/admin/deleteFlight/}+${flight.f_id}"><input class="btn btn-danger" type=button value="删除" onclick="return confirmHref()"></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>-->
+<script>
+
+    function confirmHref(){
+        if(confirm("此操作将删除该航班，您确定这样做吗？"))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    $(function(){
+        //得到当前时间
+        var date_now = new Date();
+        //得到当前年份
+        var year = date_now.getFullYear();
+        //得到当前月份
+        //注：
+        //  1：js中获取Date中的month时，会比当前月份少一个月，所以这里需要先加一
+        //  2: 判断当前月份是否小于10，如果小于，那么就在月份的前面加一个 '0' ， 如果大于，就显示当前月份
+        var month = date_now.getMonth()+1 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
+        //得到当前日子（多少号）
+        var date = date_now.getDate() < 10 ? "0"+date_now.getDate() : date_now.getDate();
+        //设置input标签的min属性
+        $("#f_dt").attr("min",year+"-"+month+"-"+date);
+    })
+</script>
+</body>
+</html>

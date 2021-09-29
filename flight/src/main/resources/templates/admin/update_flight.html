@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/bootstrap.min.css"
+          th:href="@{/admin/asset/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/plugins/font-awesome.min.css"
+          th:href="@{/admin/asset/css/plugins/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/plugins/animate.min.css"
+          th:href="@{/admin/asset/css/plugins/animate.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/style.css"
+          th:href="@{/admin/asset/css/style.css}">
+</head>
+<body style="overflow: hidden">
+<form method="post" action="/add_flight" th:action="@{/admin/updateFlight}" onsubmit="return check()">
+
+    <div class="panel">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <h3 class="animated fadeInLeft">修改航班</h3>
+                <p class="animated fadeInDown">航班管理>航班列表</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-element">
+        <div class="col-md-12 padding-0">
+            <div class="col-md-12">
+                <div class="panel form-element-padding">
+                    <div class="panel-heading">
+                        <h4>基本表单</h4>
+                    </div>
+                    <div class="panel-body" style="padding-bottom:30px;">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">航班序号</label>
+                                <div class="col-sm-11" style="width:800px;">
+                                    <span th:text="${flight.f_id}"/>
+                                    <input name="f_id" type="hidden" class="form-control" placeholder="例：CA3690" th:value="${flight.f_id}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">航班号</label>
+                                <div class="col-sm-11" style="width:560px;">
+                                    <input name="f_num" type="text" class="form-control" placeholder="例：CA3690" th:value="${flight.f_num}">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">起点</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="f_start" type="text" class="form-control" placeholder="例：北京" th:value="${flight.f_start}">
+                                </div>
+
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">终点</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="f_end" type="text" placeholder="例：上海" class="form-control" th:value="${flight.f_end}">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">原起飞时间</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input type="text" placeholder="例：08:30" class="form-control" th:value="${flight.f_dt}" readonly>
+                                </div>
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">原到达时间</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input type="text" placeholder="例：12:35" class="form-control" th:value="${flight.f_at}" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">起飞时间</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="f_dt" id="f_dt" type="datetime-local" class="form-control">
+                                </div>
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">到达时间</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="f_at" id="f_at" type="datetime-local" class="form-control" >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">头等舱数量</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="f_t_n" type="text" placeholder="例：2100" class="form-control" th:value="${flight.f_t_n}">
+                                </div>
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">商务舱数量</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="f_s_n" type="text" placeholder="例：1600" class="form-control" th:value="${flight.f_s_n}">
+                                </div>
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">经济舱数量</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="f_j_n" type="text" placeholder="例：1200" class="form-control" th:value="${flight.f_j_n}">
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">头等舱价格</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="f_t" type="text" placeholder="例：2100" class="form-control" th:value="${flight.f_t}">
+                                </div>
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">商务舱价格</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="f_s" type="text" placeholder="例：1600" class="form-control" th:value="${flight.f_s}">
+                                </div>
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">经济舱价格</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="f_j" type="text" placeholder="例：1200" class="form-control" th:value="${flight.f_j}">
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center" style=" margin:20px;">
+                    <input class="submit btn btn-danger" type="submit" value="修改">
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</form>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script>
+    //输入时间不得小于当前时间
+    $(function(){
+        //得到当前时间
+        var date_now = new Date();
+        //得到当前年份
+        var year = date_now.getFullYear();
+        //得到当前月份
+        //注：
+        //  1：js中获取Date中的month时，会比当前月份少一个月，所以这里需要先加一
+        //  2: 判断当前月份是否小于10，如果小于，那么就在月份的前面加一个 '0' ， 如果大于，就显示当前月份
+        var month = date_now.getMonth()+1 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
+        //得到当前日子（多少号）
+        var date = date_now.getDate() < 10 ? "0"+date_now.getDate() : date_now.getDate();
+        var hour = date_now.getHours()< 10 ? "0"+date_now.getHours() : date_now.getHours();
+        var minute = date_now.getMinutes()< 10 ? "0"+date_now.getMinutes() : date_now.getMinutes();
+        //设置input标签的min属性
+        $("#f_dt").attr("min",year+"-"+month+"-"+date+"T"+hour+":"+minute);
+        $("#f_at").attr("min",year+"-"+month+"-"+date+"T"+hour+":"+minute);
+    })
+
+    function check() {
+        /*var nameValue = window.document.getElementById("Flight_num").value;*/
+        if (window.document.getElementsByName("f_num")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("航班号不能为空!");
+            return false;
+        }
+        if (window.document.getElementsByName("f_start")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("起点不能为空!");
+            return false;
+        }if (window.document.getElementsByName("f_end")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("终点不能为空!");
+            return false;
+        }if (window.document.getElementsByName("f_dt")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("起飞时间不能为空!");
+            return false;
+        }if (window.document.getElementsByName("f_at")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("到达时间不能为空!");
+            return false;
+        }if (window.document.getElementsByName("f_t_n")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("头等舱数量不能为空!");
+            return false;
+        }if (window.document.getElementsByName("f_s_n")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("商务舱数量不能为空!");
+            return false;
+        }if (window.document.getElementsByName("f_j_n")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("经济舱数量不能为空!");
+            return false;
+        }if (window.document.getElementsByName("f_t")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("头等舱价格不能为空!");
+            return false;
+        }if (window.document.getElementsByName("f_s")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("商务舱价格不能为空!");
+            return false;
+        }if (window.document.getElementsByName("f_j")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("经济舱价格不能为空!");
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

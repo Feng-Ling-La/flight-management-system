@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/bootstrap.min.css"
+          th:href="@{/admin/asset/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/plugins/font-awesome.min.css"
+          th:href="@{/admin/asset/css/plugins/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/plugins/animate.min.css"
+          th:href="@{/admin/asset/css/plugins/animate.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/style.css"
+          th:href="@{/admin/asset/css/style.css}">
+</head>
+<body style="overflow: scroll;overflow-x: hidden">
+<form method="post" action="/add_User" th:action="@{/admin/UpdateInfo}" onsubmit="return check()">
+
+    <div class="panel">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <h3 class="animated fadeInLeft">用户列表</h3>
+                <p class="animated fadeInDown">用户管理>用户列表</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-element">
+        <div class="col-md-12 padding-0">
+            <div class="col-md-12">
+                <div class="panel form-element-padding">
+                    <div class="panel-heading">
+                        <h4>基本表单</h4>
+                    </div>
+                    <div class="panel-body" style="padding-bottom:30px;">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">用户id</label>
+                                <div class="col-sm-11" style="width:400px;">
+                                    <span th:text="${user.id}"/>
+                                    <input name="id" type="hidden" class="form-control" placeholder="例：23" th:value="${user.id}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">用户名</label>
+                                <div class="col-sm-11" style="width:400px;">
+                                    <input name="username" type="text" class="form-control" placeholder="例：风铃" th:value="${user.username}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">密码</label>
+                                <div class="col-sm-11" style="width:400px;">
+                                    <input name="password" type="text" class="form-control" placeholder="" th:value="${user.password}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">真实姓名</label>
+                                <div class="col-sm-11" style="width:400px;">
+                                    <input name="realName" type="text" class="form-control" placeholder="例：张三" th:value="${user.realName}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">身份证号</label>
+                                <div class="col-sm-11" style="width:400px;">
+                                    <input name="identityNum" type="text" class="form-control" placeholder="例：xxxxxx xxxxxxxx xxx x" th:value="${user.identityNum}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">手机号码</label>
+                                <div class="col-sm-11" style="width:400px;">
+                                    <input name="Phone" type="text" class="form-control" placeholder="例：xxx xxxx xxxx" th:value="${user.Phone}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">邮箱</label>
+                                <div class="col-sm-11" style="width:400px;">
+                                    <input name="email" type="text" class="form-control" placeholder="例：zhangsan@qq.com" th:value="${user.email}">
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center" style=" margin:20px;">
+                    <input class="submit btn btn-danger" type="submit" value="修改">
+                </div>
+
+                <div  th:unless="${#strings.isEmpty(message)}" style="font-size: x-large;text-align: center">
+                    <span th:text="${message}" style="color: red"> 用户名和密码错误</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    function check() {
+        /*var nameValue = window.document.getElementById("Flight_num").value;*/
+        if (window.document.getElementsByName("username")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("用户名不能为空!");
+            return false;
+        }
+        if (window.document.getElementsByName("password")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("密码不能为空!");
+            return false;
+        }if (window.document.getElementsByName("realName")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("真实姓名不能为空!");
+            return false;
+        }if (window.document.getElementsByName("identityNum")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("身份证号不能为空!");
+            return false;
+        }if (window.document.getElementsByName("Phone")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("电话号码不能为空!");
+            return false;
+        }if (window.document.getElementsByName("email")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("邮箱不能为空!");
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

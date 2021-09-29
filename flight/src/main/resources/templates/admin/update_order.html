@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/bootstrap.min.css"
+          th:href="@{/admin/asset/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/plugins/font-awesome.min.css"
+          th:href="@{/admin/asset/css/plugins/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/plugins/animate.min.css"
+          th:href="@{/admin/asset/css/plugins/animate.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/admin/asset/css/style.css"
+          th:href="@{/admin/asset/css/style.css}">
+</head>
+<body style="overflow: hidden">
+<form method="post" action="/add_flight" th:action="@{/admin/updateOrder}" onsubmit="return check()">
+
+    <div class="panel">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <h3 class="animated fadeInLeft">订单列表</h3>
+                <p class="animated fadeInDown">订单管理>订单列表</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-element">
+        <div class="col-md-12 padding-0">
+            <div class="col-md-12">
+                <div class="panel form-element-padding">
+                    <div class="panel-heading">
+                        <h4>基本表单</h4>
+                    </div>
+                    <div class="panel-body" style="padding-bottom:30px;">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">订单号</label>
+                                <div class="col-sm-11" style="width:800px;">
+                                    <span th:text="${order.order_id}"/>
+                                    <input name="order_id" type="hidden" class="form-control" placeholder="例：23" th:value="${order.order_id}">
+                                </div>
+                            </div>
+
+                            <!--<div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">用户id</label>
+                                <div class="col-sm-11" style="width:800px;">
+                                    <input name="id" type="text" class="form-control" placeholder="与用户名对应" th:value="${order.id}">
+                                </div>
+                            </div>-->
+
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">用户id</label>
+                                <div class="col-sm-11" style="width:230px;">
+                                    <input name="id" type="text" class="form-control" placeholder="与用户名对应" th:value="${order.id}">
+                                </div>
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">用户名</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="username" type="text" class="form-control" placeholder="例：小明" th:value="${order.username}">
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">航班id</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="f_id" type="text" placeholder="与航班号对应" class="form-control" th:value="${order.f_id}">
+                                </div>
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">航班号</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="f_num" type="text" placeholder="例：flight1" class="form-control" th:value="${order.f_num}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">座舱类型</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <!--<input name="f_type" type="text" placeholder="例：商务舱" class="form-control" th:value="${order.f_type}">-->
+                                    <select name="f_type" class="form-control">
+                                        <option value="头等舱" selected="selected">头等舱</option>
+                                        <option value="商务舱">商务舱</option>
+                                        <option value="经济舱">经济舱</option>
+                                    </select>
+                                </div>
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">价格</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="f_price" type="text" placeholder="与座舱类型对应" class="form-control" th:value="${order.f_price}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">原订购时间</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input type="text" class="form-control" th:value="${order.o_date}" readonly>
+                                    <!--<input name="o_date" type="datetime-local" placeholder="例：2021-07-01 08:08:08" class="form-control" th:value=<fmt:formatDate value='${course.coursestarttime}' pattern='yyyy-MM-dd\'T\'hh:mm:ss'/>>-->
+                                </div>
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">订购时间</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input type="datetime-local" name="o_date" class="form-control">
+                                    <!--<input name="o_date" type="datetime-local" placeholder="例：2021-07-01 08:08:08" class="form-control" th:value=<fmt:formatDate value='${course.coursestarttime}' pattern='yyyy-MM-dd\'T\'hh:mm:ss'/>>-->
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">用户电话</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="phone" type="text" placeholder="例：xxx xxxx xxxx" class="form-control" th:value="${order.phone}">
+                                </div>
+
+                                <label class="col-sm-1 control-label text-right" style="width:100px;">用户身份证</label>
+                                <div class="col-sm-3" style="width:230px;">
+                                    <input name="userID" type="text" placeholder="例：xxxxxx xxxxxxxx xxx x" class="form-control" th:value="${order.userID}">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center" style=" margin:20px;">
+                    <input class="submit btn btn-danger" type="submit" value="修改">
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    function check() {
+        /*var nameValue = window.document.getElementById("Flight_num").value;*/
+        if (window.document.getElementsByName("id")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("用户id不能为空!");
+            return false;
+        }
+        if (window.document.getElementsByName("username")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("用户名不能为空!");
+            return false;
+        }if (window.document.getElementsByName("f_id")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("航班id不能为空!");
+            return false;
+        }if (window.document.getElementsByName("f_price")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("价格不能为空!");
+            return false;
+        }if (window.document.getElementsByName("o_date")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("订购时间不能为空!");
+            return false;
+        }if (window.document.getElementsByName("phone")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("用户电话不能为空!");
+            return false;
+        }if (window.document.getElementsByName("userID")[0].value == "") // 或者是!nameValue
+        {
+            window.alert("用户身份证不能为空!");
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

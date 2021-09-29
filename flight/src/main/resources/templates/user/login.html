@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册登录</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <style>
+        .error{
+            color: #b96027;
+        }
+        .user_login{
+            filter:alpha(Opacity=80);
+            -moz-opacity:0.5;opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+<br>
+<br>
+<br>
+<div class="m-container-small m-padded-tb-massive" style="max-width: 30em !important;">
+    <div class="ur container user_login">
+        <div class="ui middle aligned center aligned grid">
+            <div class="column">
+                <h2 class="ui teal image header">
+                    <div class="content">
+                        用户登录
+                    </div>
+                </h2>
+                <form class="ui large form" method="post" action="#" id="loginform" th:action="@{/user/login}">
+                    <div class="ui  segment" style="position: relative;">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="username" placeholder="用户名">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password" placeholder="密码">
+                            </div>
+                        </div>
+                        <button class="ui teal submit button">登 录</button>
+                        <a href="register.html" th:href="@{/user/register}" style="position: absolute;right: 30px;bottom: 10px;">注 册</a>
+                    </div>
+
+                    <div class="ui error mini message"></div>
+                    <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">
+                        用户名和密码错误
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script>
+    $('.ui.form').form({
+        fields: {
+            username: {
+                identifier: 'username',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入用户名'
+                }]
+            },
+            password: {
+                identifier: 'password',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入密码'
+                }]
+            }
+        }
+    });
+
+    //从iframe框架进入首页面时跳出iframe到顶层页面
+    $(function(){
+        login.initPage();
+    });
+    var login = {
+        //初始化页面跳转，为了防止从iframe跳转到login页面直接在iframe中显示login页面
+        initPage : function() {
+            //alert(location.href);
+            if(window.top != window.self){
+                top.location.href = location.href;
+            }
+        },
+    }
+
+</script>
+
+</body>
+</html>

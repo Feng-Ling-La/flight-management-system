@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="../../static/css/core.css" th:href="@{/css/core.css}">
+    <link type="text/css" rel="stylesheet" href="../../static/css/home.css" th:href="@{/css/home.css}">
+</head>
+<body>
+
+<div class="ydc-content-slide ydc-body">
+    <div class="ydc-flex">
+
+        <!-- right begin -->
+        <div class="ydc-column ydc-column-8">
+            <div class="ydc-release-content">
+                <div class="ydc-tabPanel ydc-tabPanel-release">
+                    <div class="ydc-release-tab-head">
+                        <ul>
+                            <li class="hit">个人信息</li>
+                        </ul>
+                    </div>
+                    <div class="ydc-panes">
+                        <div class="ydc-pane ydc-pane-clear" style="display: block;">
+                            
+                            <div class="ydc-reg-form-group clearfix">
+                                <div class="ydc-reg-form-input">
+                                    <label></label>
+                                    <div class="ydc-reg-form-text ydc-reg-form-user-logo">
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="ydc-reg-form-group clearfix">
+                                <label>编号</label>
+                                <div class="ydc-reg-form-input">
+                                    <label th:text="${session.user.id}"></label>
+                                </div>
+                            </div>
+
+                            <div class="ydc-reg-form-group clearfix">
+                                <label>用户名</label>
+                                <div class="ydc-reg-form-input">
+                                    <label th:text="${session.user.username}">***</label>
+                                </div>
+                            </div>
+
+                            <div class="ydc-reg-form-group clearfix">
+                                <label>密码</label>
+                                <div class="ydc-reg-form-input">
+                                    <label th:text="${session.user.password}">***</label>
+                                </div>
+                            </div>
+
+                            <div class="ydc-reg-form-group clearfix">
+                                <label>真实姓名</label>
+                                <div class="ydc-reg-form-input">
+                                    <label th:text="${session.user.realName}">***</label>
+                                </div>
+                            </div>
+
+
+                            <div class="ydc-reg-form-group clearfix">
+                                <label>身份证号码</label>
+                                <div class="ydc-reg-form-input">
+                                    <label th:text="${session.user.identityNum}">***</label>
+                                </div>
+                            </div>
+
+
+
+                            <div class="ydc-reg-form-group clearfix">
+                                <label>联系手机</label>
+                                <div class="ydc-reg-form-input">
+                                    <label th:text="${session.user.Phone}">158****0960</label>
+                                </div>
+                            </div>
+                            <div class="ydc-reg-form-group clearfix">
+                                <label>邮箱</label>
+                                <div class="ydc-reg-form-input">
+                                    <label th:text="${session.user.email}">***@163.com</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- right end -->
+    </div>
+</div>
+
+</body>
+</html>
